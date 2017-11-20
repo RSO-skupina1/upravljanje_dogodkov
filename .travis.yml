@@ -15,8 +15,8 @@ cache:
 
 script:
   - mvn clean package -U
-  - docker build -t rso_socialno_omrezje/upravljanje_dogodkov .
+  - docker build -t db8913/upravljanje_dogodkov .
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push rso_socialno_omrezje/upravljanje_dogodkov
+  - docker push db8913/upravljanje_dogodkov
