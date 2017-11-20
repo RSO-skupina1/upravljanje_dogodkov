@@ -9,10 +9,6 @@ dist: trusty
 jdk:
   - openjdk8
 
-cache:
-  directories:
-    - $HOME/.m2
-
 script:
   - mvn clean package -U
   - docker build -t rso_socialno_omrezje/upravljanje_dogodkov .
