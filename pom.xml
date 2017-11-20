@@ -40,7 +40,7 @@
     </dependencies>
 
     <properties>
-        <kumuluzee.version>2.5.0-SNAPSHOT</kumuluzee.version>
+        <kumuluzee.version>2.4.0</kumuluzee.version>
     </properties>
 
     <build>
