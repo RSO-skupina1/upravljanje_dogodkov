@@ -1,12 +1,11 @@
-package si.fri.rso.upravljanje_dogodkov.microservice;
+package si.fri.rso.upravljanje_dogodkov.rest;
 
+import si.fri.rso.upravljanje_dogodkov.config.RestEndpoints;
 import si.fri.rso.upravljanje_dogodkov.pojo.Dogodek;
 
 import javax.enterprise.context.RequestScoped;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.inject.Inject;
+import javax.ws.rs.*;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -18,13 +17,21 @@ import java.util.Date;
 @Path("upravljanje_dogodkov")
 public class UpravljanjeDogodkov {
 
+    @Inject
+    private RestEndpoints restEndpoints;
+
+    @GET
+    public Response test() {
+        return Response.ok(restEndpoints.getKatalogDogodkovUrl()).build();
+    }
+
     @PUT
     @Path("/{dogodekId}")
     public Response editEvent(@PathParam("dogodekId") int dogodekId) {
 
         System.out.println("DELA");
 
-        Response katalogDogodkovResponse = ClientBuilder.newClient().target("http://localhost:8080/v1/")
+        Response katalogDogodkovResponse = ClientBuilder.newClient().target(restEndpoints.getKatalogDogodkovUrl())
                 .path("katalog_dogodkov").path(Integer.toString(dogodekId)).request().get();
 
         if(!katalogDogodkovResponse.getStatusInfo().getFamily().equals(Response.Status.Family.SUCCESSFUL)) {

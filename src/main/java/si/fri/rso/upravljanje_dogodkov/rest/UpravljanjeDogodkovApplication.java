@@ -1,4 +1,4 @@
-package si.fri.rso.upravljanje_dogodkov.microservice;
+package si.fri.rso.upravljanje_dogodkov.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
