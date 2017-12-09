@@ -7,16 +7,19 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 @ConfigBundle("rest-endpoints")
-public class RestEndpoints {
+public class ConfigurationData {
 
     @ConfigValue(watch = true)
-    private String katalogDogodkovUrl;
+    private String nazivDogodka;
 
-    public String getKatalogDogodkovUrl() {
-        return katalogDogodkovUrl;
+    public String getNazivDogodka() {
+        return nazivDogodka;
     }
 
-    public void setKatalogDogodkovUrl(String katalogDogodkovUrl) {
-        this.katalogDogodkovUrl = katalogDogodkovUrl;
+    @Override
+    public String toString() {
+        return "ConfigurationData{" +
+                "nazivDogodka='" + nazivDogodka + '\'' +
+                '}';
     }
 }

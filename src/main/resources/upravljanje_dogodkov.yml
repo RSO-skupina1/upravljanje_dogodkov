@@ -1,0 +1,41 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: upravljanje-dogodkov-deployment
+  labels:
+    app: upravljanje-dogodkov
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: upravljanje-dogodkov
+  template:
+    metadata:
+      labels:
+        app: upravljanje-dogodkov
+    spec:
+      containers:
+        - image: db8913/upravljanje_dogodkov:latest
+          name: upravljanje-dogodkov
+          ports:
+            - containerPort: 8081
+          env:
+            - name: KUMULUZEE_DISCOVERY_CLUSTER
+              value: cluster
+            - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+              value: http://etcd:2379
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: upravljanje-dogodkov-service
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8081
+      nodePort: 30011
+  selector:
+    app: upravljanje-dogodkov

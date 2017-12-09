@@ -3,11 +3,16 @@ kumuluzee:
   version: 1.0.0
   env:
     name: dev
+
   config:
     start-retry-delay-ms: 500
     max-retry-delay-ms: 900000
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://etcd:2379
+
+  discovery:
+    etcd:
+      hosts: http://etcd:2379
 
 rest-endpoints:
-  katalog-dogodkov-url: "http://localhost:8080/v1/"
+  naziv-dogodka: konfiguracija
