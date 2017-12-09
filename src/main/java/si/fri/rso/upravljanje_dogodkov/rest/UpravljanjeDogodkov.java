@@ -1,7 +1,7 @@
 package si.fri.rso.upravljanje_dogodkov.rest;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
-import si.fri.rso.upravljanje_dogodkov.config.RestEndpoints;
+import si.fri.rso.upravljanje_dogodkov.config.ConfigurationData;
 import si.fri.rso.upravljanje_dogodkov.pojo.Dogodek;
 
 import javax.enterprise.context.RequestScoped;
@@ -20,24 +20,22 @@ import java.util.Date;
 public class UpravljanjeDogodkov {
 
     @Inject
-    private RestEndpoints restEndpoints;
+    private ConfigurationData configurationData;
 
     @Inject
     @DiscoverService(value = "katalog_dogodkov-service", version = "1.0.x", environment = "dev")
     private WebTarget target;
 
     @GET
+    @Path("/test")
     public Response test() {
-        return Response.ok(restEndpoints.getKatalogDogodkovUrl()).build();
+        return Response.ok(configurationData.toString()).build();
     }
 
     @PUT
     @Path("/{dogodekId}")
     public Response editEvent(@PathParam("dogodekId") int dogodekId) {
         WebTarget service = target.path("v1/katalog_dogodkov");
-
-        System.out.println("DELA");
-        System.out.println(service.getUri().toString());
 
         Response katalogDogodkovResponse = ClientBuilder.newClient().target(service.getUri())
                 .path(Integer.toString(dogodekId)).request().get();
@@ -47,7 +45,7 @@ public class UpravljanjeDogodkov {
         }
 
         Dogodek dogodek = katalogDogodkovResponse.readEntity(Dogodek.class);
-        dogodek.setNazivDogodka("Domen Balantic");
+        dogodek.setNazivDogodka(configurationData.getNazivDogodka());
         dogodek.setDatumDogodka(new Date());
 
         return ClientBuilder.newClient().target(service.getUri())
