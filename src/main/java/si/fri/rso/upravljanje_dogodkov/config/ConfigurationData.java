@@ -16,6 +16,10 @@ public class ConfigurationData {
         return nazivDogodka;
     }
 
+    public void setNazivDogodka(String nazivDogodka) {
+        this.nazivDogodka = nazivDogodka;
+    }
+
     @Override
     public String toString() {
         return "ConfigurationData{" +
